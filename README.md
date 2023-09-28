@@ -77,7 +77,7 @@ python test.py --protocol [1, 2, 3] --task [name of the experiment] --checkpoint
 ```
 
 ## :lollipop: Trained Model
-| Protocol   | MPJRE  | MPJPE  | MPJVE  |  Traind Model |
+| Protocol   | MPJRE  | MPJPE  | MPJVE  | Trained Model |
 | :--------- | :----: | :----: | :----: |:-------------:|
 | 1          | 2.94   | 3.23   | 20.45  |[Google Drive](https://drive.google.com/file/d/1SwMwATuxpVRKXLXK8oCsTgVp2mVsLPmb/view?usp=drive_link) |
 
