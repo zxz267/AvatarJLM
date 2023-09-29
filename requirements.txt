@@ -1,0 +1,4 @@
+opencv-python
+trimesh
+pyrender
+scikit-learn
