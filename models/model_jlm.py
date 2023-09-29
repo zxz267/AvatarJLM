@@ -142,12 +142,15 @@ class ModelAvatarJLM(ModelBase):
 
 
         # --------------------------------------
-        self.gt_global_root_trans = data['pos_pelvis_gt'].to(self.device)
         self.gt_floor_height = data['floor_height'].to(self.device)
-        self.gt_floor_contact = data['foot_contact'].to(self.device)
         self.gt_global_orientation = data['rotation_local_full'][:, :, :6].to(self.device)
         self.gt_joint_rotation = data['rotation_local_full'][:, :, 6:].to(self.device)
         self.gt_joint_position = fk_module(self.gt_global_orientation.reshape(batch * seq_len, -1), self.gt_joint_rotation.reshape(batch * seq_len, -1), self.bm).reshape(batch, seq_len, -1)
+
+        # training only
+        if not test:
+            self.gt_floor_contact = data['foot_contact'].to(self.device)
+            self.gt_global_root_trans = data['pos_pelvis_gt'].to(self.device)
 
         # testing only
         if test:
@@ -264,7 +267,7 @@ class ModelAvatarJLM(ModelBase):
         self.netG.eval()
         self.input_signal = self.input_signal.squeeze()
         self.gt_global_head_trans = self.gt_global_head_trans.squeeze()
-        window_size = self.opt['datasets']['train']['window_size']
+        window_size = self.opt['datasets']['test']['window_size']
         with torch.no_grad():
             if self.input_signal.shape[0] <= window_size:
                 pred_global_orientation_list = []  

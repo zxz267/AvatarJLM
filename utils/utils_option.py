@@ -46,15 +46,20 @@ def parse(opt_path, args=None, is_train=True):
         if 'task' in args.__dict__:
             opt['task'] = args.task
 
-        if 'protocol' in args.__dict__:
-            opt['datasets']['train']['dataset_type'] = 'amass_p' + args.protocol
-            opt['datasets']['test']['dataset_type'] = 'amass_p' + args.protocol
-            if args.protocol in ['1', '2']:
-                opt['datasets']['train']['dataroot'] = "./data/protocol_1"
-                opt['datasets']['test']['dataroot'] = "./data/protocol_1"
+        if 'protocol' in args.__dict__ and args.protocol is not None:
+            if args.protocol != 'real':
+                opt['datasets']['train']['dataset_type'] = 'amass_p' + args.protocol
+                opt['datasets']['test']['dataset_type'] = 'amass_p' + args.protocol
+                if args.protocol in ['1', '2']:
+                    opt['datasets']['train']['dataroot'] = "./data/protocol_1"
+                    opt['datasets']['test']['dataroot'] = "./data/protocol_1"
+                else:
+                    opt['datasets']['train']['dataroot'] = "./data/protocol_3"
+                    opt['datasets']['test']['dataroot'] = "./data/protocol_3"
             else:
-                opt['datasets']['train']['dataroot'] = "./data/protocol_3"
-                opt['datasets']['test']['dataroot'] = "./data/protocol_3"
+                opt['datasets']['test']['dataset_type'] = "tracking"
+                opt['datasets']['test']['dataroot'] = "./data/real_captured_data"
+
 
         if 'checkpoint' in args.__dict__:
             opt['path']['pretrained'] = args.checkpoint

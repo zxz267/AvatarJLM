@@ -106,6 +106,7 @@ def evaluate(opt, logger, model, test_loader, epoch=0, save_animation=False):
 
         # testing log
         logger.info(info)
+    return avg_error
 
 def main(opt, save_animation=False):
     paths = (path for key, path in opt['path'].items() if 'pretrained' not in key)
@@ -137,14 +138,14 @@ def main(opt, save_animation=False):
     model = define_Model(opt)
     model.init_test()
 
-    evaluate(opt, logger, model, test_loader, save_animation=save_animation)
+    _ = evaluate(opt, logger, model, test_loader, save_animation=save_animation)
 
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--opt', type=str, default='./options/opt_ajlm.json', help='Path to option JSON file.')
     parser.add_argument('--task', type=str, default='AvatarJLM', help='Experiment name.')
-    parser.add_argument('--protocol', type=str, choices=['1', '2', '3'], required=True, help='Protocol.')
+    parser.add_argument('--protocol', type=str, choices=['1', '2', '3', 'real'], required=True, help='Protocol.')
     parser.add_argument('--checkpoint', type=str, required=True, help='Trained model weights.')
     parser.add_argument('--vis', action="store_true", help='Save animation.')
     args = parser.parse_args()
