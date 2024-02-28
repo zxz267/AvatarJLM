@@ -42,7 +42,7 @@
 
 [09/2023] Training and testing codes are released.
 
-[07/2023] AvatarJLM is accepted to ICCV 2023:partying_face:!
+[07/2023] AvatarJLM is accepted to ICCV 2023 :partying_face:!
 
 
 ## :file_folder: Data Preparation
